@@ -1,4 +1,4 @@
-## Hi there 👋
+## Hi 👋
 
 🙋‍♀️ On-demand service powered by AI
 
