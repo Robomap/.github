@@ -1,6 +1,6 @@
 ## Hi there 👋
 
-🙋‍♀️ We implement **LoRaWAN®** and **AI** in the industry.
+🙋‍♀️ On-demand service powered by AI
 
 👩‍💻 We love to **build staff**.
 
