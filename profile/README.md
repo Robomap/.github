@@ -2,6 +2,6 @@
 
 🙋‍♀️ On-demand service powered by AI
 
-👩‍💻 We love to **build staff**.
+👩‍💻 We love to **build staff**
 
-🍿 **Innovation** is our drive.
+🍿 **Innovation** is our drive
