@@ -12,15 +12,21 @@ Store these as repository or organization Actions secrets (never commit them):
 | `APPLE_TEAM_ID` | Apple Developer Team ID |
 | `APPLE_KEY_ID` | Key ID for the Sign in with Apple key |
 | `APPLE_PRIVATE_KEY` | `.p8` private key (PEM or bare base64). Newlines may be stored as `\n`. |
-| `AZURE_CREDENTIALS` | Azure service principal JSON used by the sync workflow |
 
 `APPLE_CLIENT_SECRET` is **not** required. The API generates a short-lived client-secret JWT from the private key at runtime.
 
-## Sync to Azure
+Azure authentication for the sync job uses **GitHub OIDC** (`GitHub-OIDC-Admin` app registration). No `AZURE_CREDENTIALS` secret is needed.
 
-Workflow: `.github/workflows/sync-apple-oauth-secrets.yml`
+## Workflow
 
-It writes Container App secrets (`apple-client-id`, `apple-team-id`, `apple-key-id`, `apple-private-key`) and binds them to:
+File: `.github/workflows/sync-apple-oauth-secrets.yml`
+
+| Trigger | Job | Purpose |
+|---------|-----|---------|
+| `pull_request` / `push` to `main` | `Verify production Apple OAuth` | Confirms `api.robomap.ai/auth/apple` redirects to Apple with the expected client id |
+| `workflow_dispatch` | `Sync secrets to Azure` | Writes Container App secrets from GitHub and rebinds env `secretRef`s |
+
+Sync writes ACA secrets (`apple-client-id`, `apple-team-id`, `apple-key-id`, `apple-private-key`) and binds:
 
 - `APPLE_CLIENT_ID`
 - `APPLE_TEAM_ID`
