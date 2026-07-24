@@ -1,0 +1,359 @@
+/* Apple-inspired visual language for Robomap landing */
+
+:root {
+  --black: #000000;
+  --white: #ffffff;
+  --gray-50: #f5f5f7;
+  --gray-100: #e8e8ed;
+  --gray-200: #d2d2d7;
+  --gray-500: #6e6e73;
+  --gray-700: #424245;
+  --accent: #0071e3;
+  --accent-hover: #0077ed;
+  --shadow: 0 8px 28px rgba(0, 0, 0, 0.06);
+  --radius: 18px;
+  --radius-sm: 12px;
+  --container: 980px;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.47059;
+  letter-spacing: -0.022em;
+  color: var(--black);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.site-header {
+  background: rgba(251, 251, 253, 0.72);
+  backdrop-filter: saturate(180%) blur(20px);
+}
+
+.site-header.scrolled {
+  box-shadow: none;
+  background: rgba(251, 251, 253, 0.88);
+}
+
+.header-inner {
+  min-height: 44px;
+  gap: 18px;
+}
+
+.brand-logo {
+  height: 18px;
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.main-nav > a,
+.tools-menu-trigger {
+  display: inline-flex;
+  align-items: center;
+  min-height: 20px;
+  line-height: 1.2;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.main-nav a,
+.header-actions .btn-ghost {
+  color: #000000;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+.main-nav a:hover,
+.header-actions .btn-ghost:hover {
+  opacity: 1;
+}
+
+.language-switcher-trigger {
+  min-height: 30px;
+  padding: 0 10px;
+  border-radius: 980px;
+  border-color: transparent;
+  background: rgba(0, 0, 0, 0.04);
+  box-shadow: none;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.language-switcher-trigger:hover,
+.language-switcher-trigger:focus-visible {
+  background: rgba(0, 0, 0, 0.06);
+  border-color: transparent;
+  box-shadow: none;
+  transform: none;
+}
+
+.language-switcher-menu {
+  border-radius: 14px;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.12);
+}
+
+.language-switcher-search:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.12);
+}
+
+.language-option:hover,
+.language-option.is-focused,
+.language-option.is-selected {
+  background: rgba(0, 113, 227, 0.08);
+  border-color: transparent;
+}
+
+.btn {
+  min-height: 36px;
+  padding: 0 16px;
+  border-radius: 980px;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.btn:hover {
+  transform: none;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--white);
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+}
+
+.btn-ghost {
+  color: var(--accent);
+}
+
+.booking-actions .btn,
+.btn-dark {
+  min-height: 44px;
+  font-size: 17px;
+  font-weight: 400;
+}
+
+.btn-dark,
+.booking-actions .btn-primary {
+  background: var(--accent);
+}
+
+.btn-secondary {
+  background: var(--gray-50);
+  border-color: transparent;
+  color: var(--accent);
+}
+
+.hero {
+  min-height: auto;
+  padding: 108px 0 88px;
+  background: #ffffff;
+  color: var(--black);
+}
+
+.hero-bg {
+  display: none;
+}
+
+.hero-copy h1 {
+  font-size: clamp(2.75rem, 6vw, 4.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  font-weight: 600;
+}
+
+.hero-subtitle,
+.eyebrow {
+  font-size: 1.25rem;
+  line-height: 1.4;
+  letter-spacing: 0.004em;
+}
+
+.hero-subtitle {
+  color: var(--gray-700);
+  font-weight: 400;
+}
+
+.eyebrow {
+  color: var(--gray-700);
+  font-weight: 400;
+}
+
+.business .eyebrow.dark {
+  color: var(--gray-500);
+}
+
+.hero-city-btn {
+  color: var(--accent);
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.hero-city-btn:hover,
+.hero-city-btn:focus-visible {
+  text-decoration: underline;
+}
+
+.booking-card {
+  border: none;
+  border-radius: 20px;
+  background: var(--gray-50);
+  box-shadow: none;
+  padding: 28px;
+}
+
+.booking-tabs,
+.schedule-toggle {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.booking-tab.active,
+.schedule-option.active {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.location-input-wrap,
+.time-input-wrap {
+  border-color: var(--gray-200);
+  border-radius: 12px;
+  background: var(--white);
+}
+
+.location-input-wrap:focus-within,
+.time-input-wrap:focus-within {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.12);
+}
+
+.section {
+  padding: 88px 0;
+}
+
+.section:nth-of-type(even) {
+  background: var(--white);
+}
+
+.section-head h2,
+.business-providers h3,
+.app-download h2,
+.account-cta-inner h2,
+.plan-later-copy h2,
+.business-hero h2 {
+  font-size: clamp(2rem, 4.8vw, 3.5rem);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.08;
+}
+
+.section-head p,
+.plan-later-copy p,
+.business-copy p {
+  font-size: 1.1875rem;
+  line-height: 1.5;
+  color: #000000;
+}
+
+.service-card,
+.service-category,
+.business-benefit-card,
+.business-usecase-card,
+.business-step-card {
+  border: 1px solid var(--gray-100);
+  border-radius: 18px;
+  box-shadow: none;
+  background: var(--white);
+}
+
+.service-card:hover,
+.business-benefit-card:hover,
+.business-usecase-card:hover {
+  transform: none;
+  box-shadow: none;
+  border-color: var(--gray-200);
+}
+
+.service-card a,
+.app-qr-link {
+  color: var(--accent);
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.service-card a:hover,
+.app-qr-link:hover {
+  text-decoration: underline;
+}
+
+.plan-later,
+.suggestions,
+.business,
+.account-cta {
+  background: var(--white);
+}
+
+.store-btn,
+.business-cta-band {
+  border-radius: 18px;
+}
+
+.store-btn {
+  min-height: 44px;
+  border-radius: 980px;
+  background: var(--accent);
+  font-weight: 400;
+}
+
+.store-btn-secondary {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--gray-200);
+}
+
+.site-footer {
+  background: var(--white);
+  color: #000000;
+  border-top: 1px solid var(--gray-100);
+}
+
+.footer-grid h4,
+.footer-grid a,
+.footer-bottom {
+  color: #000000;
+}
+
+.footer-grid h4 {
+  color: var(--black);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.footer-grid a:hover {
+  color: var(--accent);
+}
+
+.footer-logo {
+  height: 18px;
+  opacity: 0.92;
+}
+
+.account-cta-inner,
+.business-cta-band,
+.business-providers {
+  border-radius: 20px;
+}
