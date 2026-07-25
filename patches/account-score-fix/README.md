@@ -1,11 +1,14 @@
 # Account page score fix
 
-The account page broke after the score row was inserted into the compiled Angular Ivy template without updating later `bMT` node/var indexes (labels/details rendered wrong or blank).
+## Problem
+Inserting an `account-hero__score` DOM node into the compiled Ivy template broke account profile rendering (stale `bMT` / nested const indexes).
 
-## Fix
-- Correct `bMT` indexes after `getScoreDisplay()` in `app-user-profile` embedded view `St`
-- Show Material Icons `star` via `.account-hero__score::before` (same icon name as topnav)
+## Fix (deployed)
+Restored the known-good `app-user-profile` template (pre-score DOM) and show score with a star on the username line instead:
+
+- `@username · ★ 5.00` via `getUsernameScoreLine()`
+- No extra Ivy nodes / const shifts
 
 ## Deploy
-- Image: `robomap.azurecr.io/robomap-frontend:account-score-fix-20260724235627`
-- Revision: `robomap-frontend--0000354` at 100% traffic
+- Image: `robomap.azurecr.io/robomap-frontend:account-restore-20260725000432`
+- Revision: `robomap-frontend--0000355` at 100% traffic
