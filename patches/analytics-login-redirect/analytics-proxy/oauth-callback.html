@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Signing in · Robomap</title>
+  <link rel="icon" href="/auth-ui/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/auth-ui/styles.css" />
+</head>
+<body>
+  <main class="card" aria-label="Completing sign in">
+    <a class="brand-text" href="https://robomap.ai">Robomap</a>
+    <h1 class="login-main-title">Signing you in…</h1>
+    <p class="hint" id="status">Connecting your Robomap account to Analytics.</p>
+    <div id="error" class="error" role="alert"></div>
+    <div class="links">
+      <a href="/login">Back to sign in</a>
+    </div>
+  </main>
+
+  <script src="/auth-ui/auth.js"></script>
+  <script>
+    AuthUI.initTheme();
+    (async () => {
+      const params = new URLSearchParams(location.search);
+      const errEl = document.getElementById('error');
+      const status = document.getElementById('status');
+      const oauthError = params.get('error');
+      if (oauthError) {
+        status.textContent = '';
+        errEl.textContent = oauthError.replace(/_/g, ' ');
+        errEl.classList.add('show');
+        return;
+      }
+
+      const accessToken = params.get('access_token');
+      const returnUrl = params.get('returnUrl') || '';
+      if (!accessToken) {
+        status.textContent = '';
+        errEl.textContent = 'Missing sign-in token. Please try again.';
+        errEl.classList.add('show');
+        return;
+      }
+
+      try {
+        const data = await AuthUI.completeRobomapSso(accessToken, returnUrl || '/');
+        const next = await AuthUI.postLoginDestination(data?.returnUrl || returnUrl);
+        location.replace(next.startsWith('/') ? next : '/');
+      } catch (ex) {
+        status.textContent = '';
+        errEl.textContent = ex.message || 'Could not complete sign-in';
+        errEl.classList.add('show');
+      }
+    })();
+  </script>
+</body>
+</html>
