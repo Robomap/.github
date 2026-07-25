@@ -1,14 +1,14 @@
-# Account page score fix
+# Account page restore (menus + score)
 
 ## Problem
-Inserting an `account-hero__score` DOM node into the compiled Ivy template broke account profile rendering (stale `bMT` / nested const indexes).
+Score-row Ivy patches broke account profile rendering. A later partial restore still left the page not matching the pre-score account UI (management cards/menus).
 
-## Fix (deployed)
-Restored the known-good `app-user-profile` template (pre-score DOM) and show score with a star on the username line instead:
-
-- `@username · ★ 5.00` via `getUsernameScoreLine()`
-- No extra Ivy nodes / const shifts
+## Fix
+Rebuild frontend main from last good account build (`catalan-flag-emoji`), then:
+- keep Plans / Docs / Payment / Security / Privacy / Settings / Integrations cards
+- re-apply Face ID login button hide
+- show score on username line as `@user · ★ 5.00` (no extra Ivy nodes)
 
 ## Deploy
-- Image: `robomap.azurecr.io/robomap-frontend:account-restore-20260725000432`
-- Revision: `robomap-frontend--0000355` at 100% traffic
+- Image: `robomap.azurecr.io/robomap-frontend:account-menus-20260725001238`
+- Revision: `robomap-frontend--0000356` at 100% traffic
