@@ -1,6 +1,7 @@
 :root {
-  --page-bg: #ffffff;
-  --page-fg: #000000;
+  /* Match analytics app --background: hsl(0 0% 97%) / .dark hsl(0 0% 8%) */
+  --page-bg: #f7f7f7;
+  --page-fg: #0a0a0a;
   --card-bg: #1a1a1a;
   --card-fg: #f5f5f5;
   --card-border: rgba(255, 255, 255, 0.1);
@@ -24,8 +25,8 @@
 }
 
 html[data-theme="dark"] {
-  --page-bg: #000000;
-  --page-fg: #ffffff;
+  --page-bg: #141414;
+  --page-fg: #fafafa;
   --card-shadow: 0 18px 48px rgba(0, 0, 0, 0.55);
   color-scheme: dark;
 }

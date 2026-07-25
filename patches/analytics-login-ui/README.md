@@ -3,7 +3,7 @@
 Restyles `analytics.robomap.ai/login` (and signup / oauth-callback) to match the main app auth format:
 
 - Inter typography
-- Dark `#1a1a1a` card on light/dark page wallpaper
+- Dark `#1a1a1a` card on analytics app page background (`#f7f7f7` / `#141414`)
 - Form first, then “or continue with”, then Google / Apple
 - Same copy strings as main app (`AUTH_LOGIN`)
 - Theme toggle in the top-right utilities area
