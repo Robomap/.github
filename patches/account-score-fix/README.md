@@ -1,14 +1,15 @@
-# Account page restore (menus + score)
+# Account page fix (cache bust + score star)
 
-## Problem
-Score-row Ivy patches broke account profile rendering. A later partial restore still left the page not matching the pre-score account UI (management cards/menus).
+## Root cause
+JS/CSS filenames were reused across deploys while nginx caches `*.js` for 6 months, so browsers kept serving the broken account-score build (truncated mail/phone/place cards).
 
 ## Fix
-Rebuild frontend main from last good account build (`catalan-flag-emoji`), then:
-- keep Plans / Docs / Payment / Security / Privacy / Settings / Integrations cards
-- re-apply Face ID login button hide
-- show score on username line as `@user · ★ 5.00` (no extra Ivy nodes)
+- Restore account template from pre-score baseline (menus/cards intact)
+- Inject Score pill with Material star icon after username (no Ivy node surgery)
+- **New asset hashes** so clients must fetch fresh JS/CSS
+- `index.html` served with `Cache-Control: no-store`
 
 ## Deploy
-- Image: `robomap.azurecr.io/robomap-frontend:account-menus-20260725001238`
-- Revision: `robomap-frontend--0000356` at 100% traffic
+- Image: `robomap.azurecr.io/robomap-frontend:account-bust-20260725001720`
+- Assets: `main.eafe7c5ec0950671.js`, `styles.33e657631ff3507b.css`
+- Revision: `robomap-frontend--0000357` at 100% traffic
