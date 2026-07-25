@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign in · Robomap</title>
+  <link rel="icon" href="/auth-ui/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/auth-ui/styles.css" />
+</head>
+<body>
+  <div class="topbar">
+    <div class="theme-toggle" role="group" aria-label="Theme">
+      <button type="button" data-theme-btn="light" title="Light" aria-label="Light mode">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.8 1.42-1.42zm10.48 0l1.79-1.8-1.41-1.41-1.8 1.79 1.42 1.42zM12 4V1h0v3h0zm0 19v-3h0v3h0zM4 13H1v0h3v0zm19 0h-3v0h3v0zM6.76 19.16l-1.42 1.42-1.79-1.8 1.41-1.41 1.8 1.79zm10.48 0l1.8 1.79 1.41-1.41-1.79-1.8-1.42 1.42zM12 8a4 4 0 100 8 4 4 0 000-8z"/></svg>
+      </button>
+      <button type="button" data-theme-btn="dark" title="Dark" aria-label="Dark mode">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.1 22c5.05 0 9.27-3.65 10.1-8.49A7.5 7.5 0 0112.1 2C8.74 2 5.8 3.87 4.3 6.66A9.99 9.99 0 0012.1 22z"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <main class="card" aria-label="Sign in">
+    <a class="brand-text" href="https://robomap.ai">Robomap</a>
+    <h1 class="login-main-title">Sign in</h1>
+
+    <div id="error" class="error" role="alert"></div>
+
+    <form class="form" id="login-form" novalidate>
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" autocomplete="email" required />
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <div class="password-wrap">
+          <input id="password" name="password" type="password" autocomplete="current-password" required />
+          <button type="button" class="toggle-vis" data-toggle-password="password" aria-label="Show password">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 5c-7 0-10 7-10 7s3 7 10 7 10-7 10-7-3-7-10-7zm0 12a5 5 0 110-10 5 5 0 010 10zm0-8a3 3 0 100 6 3 3 0 000-6z"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="actions">
+        <label class="stay">
+          <span class="switch">
+            <input type="checkbox" id="remember" />
+            <span></span>
+          </span>
+          Stay signed in
+        </label>
+        <button class="btn-primary" type="submit" id="submit">Sign in</button>
+      </div>
+    </form>
+
+    <div class="divider" aria-hidden="true">or continue with</div>
+
+    <div class="social">
+      <button type="button" class="btn-social" data-social="google" aria-label="Sign in with Google">
+        <img src="/auth-ui/google-g.svg" alt="" width="18" height="18" />
+        Sign in with Google
+      </button>
+      <button type="button" class="btn-social" data-social="apple" aria-label="Sign in with Apple">
+        <img class="apple-icon" src="/auth-ui/apple.svg" alt="" width="18" height="18" />
+        Sign in with Apple
+      </button>
+    </div>
+
+    <div class="links">
+      <div class="muted">You don't have an account yet? <a href="/signup">Sign up</a></div>
+      <a href="/reset-password">Have you forgot your password?</a>
+      <a href="https://robomap.ai/support/" target="_blank" rel="noopener">Support</a>
+    </div>
+  </main>
+
+  <script src="/auth-ui/auth.js"></script>
+  <script>
+    AuthUI.initTheme();
+    AuthUI.bindPasswordToggles();
+    AuthUI.bindSocialButtons();
+    AuthUI.showOAuthError();
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const remember = document.getElementById('remember').checked;
+      const btn = document.getElementById('submit');
+      const err = document.getElementById('error');
+      err.classList.remove('show');
+      btn.disabled = true;
+      try {
+        const data = await AuthUI.signIn(email, password, remember);
+        if (data?.user) {
+          location.href = AuthUI.redirectTarget() || '/';
+          return;
+        }
+        throw new Error('Sign in failed');
+      } catch (ex) {
+        err.textContent = ex.message || 'Invalid email or password';
+        err.classList.add('show');
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
