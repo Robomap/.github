@@ -1,0 +1,67 @@
+{
+  "categories": [
+    {
+      "id": "domestic",
+      "icon": "home",
+      "services": [
+        "Home repair",
+        "Handyman",
+        "Cleaning",
+        "Deep cleaning",
+        "Garden care",
+        "Plumbing",
+        "Electrical",
+        "HVAC & air conditioning",
+        "Moving & assembly",
+        "Appliance repair",
+        "Pest control",
+        "Locksmith"
+      ]
+    },
+    {
+      "id": "industrial",
+      "icon": "factory",
+      "services": [
+        "Industrial Maintenance Technician",
+        "Millwright Services",
+        "Predictive & Preventive Maintenance",
+        "Equipment Installation & Commissioning",
+        "Forklift & Material Handling Equipment Service",
+        "Welding Services (MIG, TIG, Stick \u2014 on-site)"
+      ]
+    },
+    {
+      "id": "automation",
+      "icon": "precision_manufacturing",
+      "services": [
+        "PLC Programming & Troubleshooting",
+        "HMI / SCADA Configuration & Development",
+        "Automation System Commissioning & Startup",
+        "VFD Programming & Tuning",
+        "Robot Programming & Integration"
+      ]
+    },
+    {
+      "id": "networking",
+      "icon": "lan",
+      "services": [
+        "Network Engineer (LAN, WAN, Industrial Ethernet)",
+        "Industrial Network Configuration",
+        "WiFi Site Survey, Design & Optimization",
+        "Firewall & Network Security Configuration",
+        "IIoT Gateway & Edge Device Configuration"
+      ]
+    },
+    {
+      "id": "trades",
+      "icon": "construction",
+      "services": [
+        "CNC Machine Operator",
+        "Heavy Equipment Operator",
+        "Industrial Electrician",
+        "Commercial / Industrial HVAC Technician",
+        "Generator Technician"
+      ]
+    }
+  ]
+}

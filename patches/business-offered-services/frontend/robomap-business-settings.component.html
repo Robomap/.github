@@ -1,0 +1,261 @@
+<app-breadcrumb *ngIf="!embedded"></app-breadcrumb>
+
+<section class="config-page account-business-page" [class.account-business-page--embedded]="embedded">
+  <header class="config-page__head" *ngIf="!embedded">
+    <span class="config-page__eyebrow">{{ 'ACCOUNT.title' | translate }}</span>
+    <h1 class="config-page__title">{{ 'ACCOUNT_ROBOMAP_BUSINESS.title' | translate }}</h1>
+    <p class="config-page__subtitle">{{ 'ACCOUNT_ROBOMAP_BUSINESS.subtitle' | translate }}</p>
+  </header>
+
+  <div class="account-business-page__loading" *ngIf="loading">
+    <mat-spinner diameter="32"></mat-spinner>
+  </div>
+
+  <form class="config-form" *ngIf="!loading" (ngSubmit)="onSubmit()">
+    <article class="config-section landing-table-card" *ngIf="!isBusinessAccount">
+      <div class="config-section__head">
+        <span class="config-section__icon" aria-hidden="true">
+          <mat-icon>storefront</mat-icon>
+        </span>
+        <div class="config-section__copy">
+          <h2 class="config-section__title">{{ 'ACCOUNT_ROBOMAP_BUSINESS.upgrade_title' | translate }}</h2>
+          <p class="config-section__desc">{{ 'ACCOUNT_ROBOMAP_BUSINESS.upgrade_desc' | translate }}</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="config-section landing-table-card" *ngIf="isBusinessAccount && !embedded">
+      <div class="config-section__head">
+        <span class="config-section__icon" aria-hidden="true">
+          <mat-icon>assignment</mat-icon>
+        </span>
+        <div class="config-section__copy">
+          <h2 class="config-section__title">{{ 'ACCOUNT_ROBOMAP_BUSINESS.workspace_title' | translate }}</h2>
+          <p class="config-section__desc">{{ 'ACCOUNT_ROBOMAP_BUSINESS.workspace_desc' | translate }}</p>
+        </div>
+      </div>
+      <div class="config-section__body">
+        <button
+          type="button"
+          class="account-business-page__workspace-btn"
+          (click)="openBusinessWorkspace()"
+        >
+          <mat-icon aria-hidden="true">open_in_new</mat-icon>
+          <span>{{ 'ACCOUNT_ROBOMAP_BUSINESS.open_workspace' | translate }}</span>
+        </button>
+      </div>
+    </article>
+
+    <article class="config-section landing-table-card">
+      <div class="config-section__head">
+        <span class="config-section__icon" aria-hidden="true">
+          <mat-icon>business</mat-icon>
+        </span>
+        <div class="config-section__copy">
+          <h2 class="config-section__title">{{ 'ACCOUNT_ROBOMAP_BUSINESS.details_title' | translate }}</h2>
+          <p class="config-section__desc">{{ 'ACCOUNT_ROBOMAP_BUSINESS.details_desc' | translate }}</p>
+        </div>
+      </div>
+
+      <div class="config-section__body">
+        <div class="account-business-page__logo-section">
+          <label class="account-business-page__logo-upload">
+            <div
+              class="account-business-page__logo-preview"
+              [class.account-business-page__logo-preview--has-image]="logoUrl"
+              [attr.aria-label]="'ACCOUNT_ROBOMAP_BUSINESS.change_logo' | translate"
+            >
+              <img
+                *ngIf="logoUrl; else logoInitials"
+                class="account-business-page__logo-image"
+                [src]="logoUrl"
+                [alt]="'ACCOUNT_ROBOMAP_BUSINESS.logo_alt' | translate"
+              />
+              <ng-template #logoInitials>
+                <span class="account-business-page__logo-initials">
+                  <mat-icon>business</mat-icon>
+                </span>
+              </ng-template>
+              <span class="account-business-page__logo-overlay"></span>
+            </div>
+            <input
+              type="file"
+              class="account-business-page__logo-input"
+              [accept]="logoAccept"
+              [disabled]="uploadingLogo"
+              (change)="onLogoSelected($event)"
+            />
+          </label>
+          <div class="account-business-page__logo-info">
+            <p class="account-business-page__logo-label">
+              {{ 'ACCOUNT_ROBOMAP_BUSINESS.business_logo' | translate }}
+            </p>
+            <p class="account-business-page__logo-hint">
+              {{ 'ACCOUNT_ROBOMAP_BUSINESS.logo_hint' | translate }}
+            </p>
+            <p class="account-business-page__logo-error" *ngIf="logoError">{{ logoError }}</p>
+            <button
+              type="button"
+              class="account-business-page__logo-remove"
+              *ngIf="logoUrl"
+              [disabled]="uploadingLogo"
+              (click)="onRemoveLogo()"
+            >
+              {{ 'ACCOUNT_ROBOMAP_BUSINESS.remove_logo' | translate }}
+            </button>
+            <mat-spinner *ngIf="uploadingLogo" diameter="24"></mat-spinner>
+          </div>
+        </div>
+
+        <div class="account-business-page__fields">
+          <label class="config-field">
+            <span class="config-field__label">{{ 'AUTH_REGISTER.business_name' | translate }}</span>
+            <input
+              type="text"
+              name="businessName"
+              class="config-input"
+              required
+              [(ngModel)]="form.name"
+            />
+          </label>
+
+          <label class="config-field">
+            <span class="config-field__label">{{ 'AUTH_REGISTER.business_location' | translate }}</span>
+            <input
+              type="text"
+              name="businessLocation"
+              class="config-input"
+              required
+              [(ngModel)]="form.location"
+            />
+          </label>
+
+          <label class="config-field">
+            <span class="config-field__label">{{ 'AUTH_REGISTER.business_city' | translate }}</span>
+            <input
+              type="text"
+              name="businessCity"
+              class="config-input"
+              [(ngModel)]="form.city"
+            />
+          </label>
+
+          <label class="config-field">
+            <span class="config-field__label">{{ 'AUTH_REGISTER.country' | translate }}</span>
+            <input
+              type="text"
+              name="businessCountry"
+              class="config-input"
+              [(ngModel)]="form.country"
+            />
+          </label>
+
+          <label class="config-field account-business-page__field--full">
+            <span class="config-field__label">{{ 'AUTH_REGISTER.business_vat' | translate }}</span>
+            <input
+              type="text"
+              name="businessVat"
+              class="config-input"
+              required
+              [(ngModel)]="form.vat"
+            />
+          </label>
+
+          <label class="config-field account-business-page__field--full">
+            <span class="config-field__label">{{ 'AUTH_REGISTER.business_description' | translate }}</span>
+            <textarea
+              name="businessDescription"
+              class="config-textarea"
+              rows="4"
+              [(ngModel)]="form.description"
+            ></textarea>
+          </label>
+        </div>
+      </div>
+    </article>
+
+    <article class="config-section landing-table-card account-business-services">
+      <div class="config-section__head">
+        <span class="config-section__icon" aria-hidden="true">
+          <mat-icon>handyman</mat-icon>
+        </span>
+        <div class="config-section__copy">
+          <h2 class="config-section__title">
+            {{ 'ACCOUNT_ROBOMAP_BUSINESS.services_title' | translate }}
+          </h2>
+          <p class="config-section__desc">
+            {{ 'ACCOUNT_ROBOMAP_BUSINESS.services_desc' | translate }}
+          </p>
+        </div>
+      </div>
+
+      <div class="config-section__body">
+        <p class="account-business-services__summary" *ngIf="!catalogLoading && !catalogError">
+          {{
+            'ACCOUNT_ROBOMAP_BUSINESS.services_selected_count'
+              | translate: { count: selectedCount }
+          }}
+        </p>
+
+        <div class="account-business-services__loading" *ngIf="catalogLoading">
+          <mat-spinner diameter="28"></mat-spinner>
+        </div>
+
+        <p class="account-business-services__error" *ngIf="catalogError">{{ catalogError }}</p>
+
+        <div
+          class="account-business-services__category"
+          *ngFor="let category of catalog"
+        >
+          <div class="account-business-services__category-head">
+            <div class="account-business-services__category-title">
+              <mat-icon aria-hidden="true">{{ category.icon || 'build' }}</mat-icon>
+              <h3>{{ categoryLabel(category.id) }}</h3>
+            </div>
+            <div class="account-business-services__category-actions">
+              <button type="button" (click)="selectAllInCategory(category)">
+                {{ 'ACCOUNT_ROBOMAP_BUSINESS.services_select_all' | translate }}
+              </button>
+              <button type="button" (click)="clearCategory(category.id)">
+                {{ 'ACCOUNT_ROBOMAP_BUSINESS.services_clear' | translate }}
+              </button>
+            </div>
+          </div>
+
+          <ul class="account-business-services__list">
+            <li *ngFor="let service of category.services">
+              <label>
+                <input
+                  type="checkbox"
+                  [checked]="isSelected(category.id, service)"
+                  (change)="toggleService(category.id, service, $any($event.target).checked)"
+                />
+                <span>{{ service }}</span>
+              </label>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+
+    <footer class="config-form__actions">
+      <button type="submit" class="config-form__save" [disabled]="saving">
+        {{
+          (isBusinessAccount
+            ? 'ACCOUNT_ROBOMAP_BUSINESS.save_changes'
+            : 'ACCOUNT_ROBOMAP_BUSINESS.switch_to_business'
+          ) | translate
+        }}
+      </button>
+      <button
+        type="button"
+        class="config-form__cancel"
+        *ngIf="!embedded"
+        [disabled]="saving"
+        (click)="onCancel()"
+      >
+        {{ 'ACCOUNT_ROBOMAP_BUSINESS.close' | translate }}
+      </button>
+    </footer>
+  </form>
+</section>

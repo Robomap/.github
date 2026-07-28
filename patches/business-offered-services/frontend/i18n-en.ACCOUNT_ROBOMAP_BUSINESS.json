@@ -1,0 +1,9 @@
+{
+  "services_title": "Services you provide",
+  "services_desc": "Select the on-demand services your business can fulfill. Options match the On-demand Services catalog used for customer bookings.",
+  "services_selected_count": "{{count}} services selected",
+  "services_select_all": "Select all",
+  "services_clear": "Clear",
+  "services_catalog_error": "Could not load service options. Refresh the page and try again.",
+  "services_required_hint": "Select at least one service to receive matching tickets in your business workspace."
+}

@@ -1,0 +1,9 @@
+{
+  "services_title": "Servicios que ofrecéis",
+  "services_desc": "Selecciona los servicios on-demand que puede cubrir tu negocio. Las opciones coinciden con el catálogo de On-demand Services usado en las reservas.",
+  "services_selected_count": "{{count}} servicios seleccionados",
+  "services_select_all": "Seleccionar todo",
+  "services_clear": "Limpiar",
+  "services_catalog_error": "No se pudieron cargar las opciones de servicio. Actualiza la página e inténtalo de nuevo.",
+  "services_required_hint": "Selecciona al menos un servicio para recibir tickets coincidentes en el espacio de trabajo de negocio."
+}
